@@ -27,6 +27,8 @@ class ViewController: UIViewController {
         }
     }
     
+    private var calculator = CalculatorLogic()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -36,30 +38,17 @@ class ViewController: UIViewController {
         
         if let num = sender.currentTitle {
             
-            
             if(isFinishedTyping) {
                 resultLabel.text = num
                 isFinishedTyping = false
             }
             else {
-                
                 if(num == ".") {
-                    
                     let isInt = floor(displayValue) == displayValue
-                    
-                    if !isInt {
-                        return
-                    }
-                    
-                    
+                    if !isInt {return}
                 }
-                
                 resultLabel.text =  resultLabel.text! + num
-                
-               
             }
-            
-         
         }
     }
     
@@ -67,9 +56,9 @@ class ViewController: UIViewController {
         
         isFinishedTyping = true
         
-         let title = sender.currentTitle!
+        let title = sender.currentTitle!
         
-        var calculator = CalculatorLogic(number: displayValue)
+        calculator.setNumber(displayValue)
         
         guard let result = calculator.calculate(symbol: title) else {
             fatalError("No Calculated value found")
